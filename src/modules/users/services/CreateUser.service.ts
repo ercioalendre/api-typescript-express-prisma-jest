@@ -1,7 +1,8 @@
-import UsersRepository from "@modules/users/repositories/Users.repository";
 import AppError from "@shared/errors/AppError";
 import { User } from ".prisma/client";
 import { IUser } from "@modules/users/interfaces/IUser.interface";
+import FindOneUser from "@modules/users/repositories/FindOneUser.repository";
+import CreateOneUser from "@modules/users/repositories/CreateOneUser.repository";
 
 export default class CreateUserService {
   static async execute({
@@ -10,7 +11,7 @@ export default class CreateUserService {
     phone,
     password,
   }: IUser): Promise<User | null | undefined> {
-    const emailExists = await UsersRepository.findByEmail(email);
+    const emailExists = await FindOneUser.execute({ email });
 
     if (emailExists) {
       throw new AppError({
@@ -19,7 +20,7 @@ export default class CreateUserService {
       });
     }
 
-    const phoneExists = await UsersRepository.findByPhone(phone);
+    const phoneExists = await FindOneUser.execute({ phone });
 
     if (phoneExists) {
       throw new AppError({
@@ -28,7 +29,7 @@ export default class CreateUserService {
       });
     }
 
-    const createNewUser = await UsersRepository.create({
+    const createNewUser = await CreateOneUser.execute({
       full_name,
       email,
       phone,

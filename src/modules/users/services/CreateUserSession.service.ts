@@ -1,13 +1,13 @@
 import jwt from "@config/auth/jwt";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import UsersRepository from "@modules/users/repositories/Users.repository";
 import AppError from "@shared/errors/AppError";
-import IUserSession from "../interfaces/IUserSession.interface";
+import IUserSession from "@modules/users/interfaces/IUserSession.interface";
+import FindOneUser from "@modules/users/repositories/FindOneUser.repository";
 
 export default class CreateSysUserSessionService {
   static async execute(email: string, password: string): Promise<IUserSession> {
-    const user = Object.create(await UsersRepository.findByEmail(email));
+    const user = Object.create(await FindOneUser.execute({ email }));
     const userPassword = user.password || "";
     const passwordComparison = await compare(password, userPassword);
 

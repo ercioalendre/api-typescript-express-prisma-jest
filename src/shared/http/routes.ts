@@ -1,12 +1,12 @@
 import express from "express";
 import usersRoutes from "@modules/users/routes/Users.routes";
 
-const router = express.Router();
+const Router = express.Router();
 
-router.use("/", usersRoutes);
-router.use(express.static("public"));
-router.get("*", (req, res) => {
+Router.use("/", usersRoutes);
+Router.use(express.static("public"));
+Router.get("*", (req, res) => {
   res.status(404).json("Oops! Page not found.");
 });
 
-export default router;
+export default Router;

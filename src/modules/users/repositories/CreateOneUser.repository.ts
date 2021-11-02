@@ -5,7 +5,7 @@ import { IUser } from "@modules/users/interfaces/IUser.interface";
 const prisma = new PrismaClient();
 const users = prisma.user;
 
-export default class CreateOneUser {
+export default class CreateOneUserRepository {
   static async execute({ full_name, email, phone, password }: IUser): Promise<User | null> {
     const hashedPassword = await hash(password, 8);
 

@@ -3,7 +3,7 @@ import { PrismaClient, User } from "@prisma/client";
 const prisma = new PrismaClient();
 const users = prisma.user;
 
-export default class FindAllUsers {
+export default class FindAllUsersRepository {
   static async execute(): Promise<User[] | null> {
     try {
       return await users.findMany();

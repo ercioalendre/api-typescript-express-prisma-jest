@@ -1,4 +1,4 @@
-import AppError from "@shared/errors/AppError";
+import AppError from "@components/errors/AppError";
 import { User } from ".prisma/client";
 import { IUser } from "@modules/users/interfaces/IUser.interface";
 import FindOneUser from "@modules/users/repositories/FindOneUser.repository";

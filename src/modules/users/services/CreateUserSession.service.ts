@@ -1,7 +1,7 @@
-import jwt from "@config/auth/jwt";
+import jwt from "@components/config/auth/jwt";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import AppError from "@shared/errors/AppError";
+import AppError from "@components/errors/AppError";
 import IUserSession from "@modules/users/interfaces/IUserSession.interface";
 import FindOneUser from "@modules/users/repositories/FindOneUser.repository";
 

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import checkNewUserForm from "@shared/http/middlewares/checkNewUserForm.middleware";
+import checkNewUserForm from "@components/middlewares/checkNewUserForm.middleware";
 import CreateUserController from "@modules/users/controllers/CreateUser.controller";
 import CreateUserSessionController from "@modules/users/controllers/CreateUserSession.controller";
-import checkLoginUserForm from "@shared/http/middlewares/checkLoginUserForm.middleware";
+import checkLoginUserForm from "@components/middlewares/checkLoginUserForm.middleware";
 
 const UsersRoutes = Router();
 

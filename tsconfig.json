@@ -14,17 +14,11 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@config/*": [
-        "src/config/*"
-      ],
       "@modules/*": [
         "src/modules/*"
       ],
-      "@shared/*": [
-        "src/shared/*"
-      ],
-      "@middlewares/*": [
-        "src/shared/http/middlewares/*"
+      "@components/*": [
+        "src/components/*"
       ]
     },
     "typeRoots": [

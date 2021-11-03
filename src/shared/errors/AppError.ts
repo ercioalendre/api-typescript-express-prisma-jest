@@ -1,11 +1,4 @@
-export interface IError {
-  message: string;
-  statusCode: number;
-  inputError?: string[];
-  operationalError?: boolean;
-}
-
-export function isOperationalError(error: Error): boolean {
+export function isOperationalError(error: Error): boolean | undefined {
   if (error instanceof AppError) {
     return error.operationalError;
   }
@@ -15,17 +8,13 @@ export function isOperationalError(error: Error): boolean {
 export default class AppError extends Error {
   public readonly message: string;
   public readonly statusCode: number;
-  public readonly inputError: string[];
-  public readonly operationalError: boolean;
+  public readonly inputError?: string[] = [];
+  public readonly operationalError?: boolean = true;
 
-  constructor({ message, statusCode = 500, inputError = [], operationalError = true }: IError) {
-    super(message);
-
+  constructor(props: Omit<AppError, "name">) {
+    super();
     Object.setPrototypeOf(this, new.target.prototype);
-    this.message = message;
-    this.statusCode = statusCode;
-    this.operationalError = operationalError;
-    this.inputError = inputError;
+    Object.assign(this, props);
     Error.captureStackTrace(this);
   }
 }

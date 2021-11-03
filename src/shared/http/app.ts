@@ -82,7 +82,7 @@ class AppController {
             level: "info",
           });
 
-          if (error.inputError.length >= 1) {
+          if (error.inputError && error.inputError.length >= 1) {
             return res.status(error.statusCode).json({
               status: "error",
               message: error.message,

@@ -1,4 +1,4 @@
-import AppError from "@shared/errors/AppError";
+import AppError from "@components/errors/AppError";
 import { NextFunction, Request, Response } from "express";
 
 export default function checkNewUserForm(req: Request, res: Response, next: NextFunction): void {

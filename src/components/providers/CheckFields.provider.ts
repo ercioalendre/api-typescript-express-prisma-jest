@@ -1,4 +1,4 @@
-import AppError from "@shared/errors/AppError";
+import AppError from "@components/errors/AppError";
 
 export default class CheckFields {
   static inputName(name: string): void | boolean {

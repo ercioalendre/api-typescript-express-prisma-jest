@@ -4,8 +4,8 @@ import "express-async-errors";
 import winston from "winston";
 import helmet from "helmet";
 import cors from "cors";
-import routes from "@shared/http/routes";
-import AppError, { isOperationalError } from "@shared/errors/AppError";
+import routes from "src/routes";
+import AppError, { isOperationalError } from "src/components/errors/AppError";
 import express, { Express, NextFunction, Request, Response } from "express";
 
 class AppController {
@@ -45,14 +45,15 @@ class AppController {
           winston.format.timestamp({
             format: "DD MMM YYYY HH:mm:ss",
           }),
-          winston.format.printf(
-            info =>
-              `[ Client IP: ${
-                req.headers["x-forwarded-for"] || req.socket.remoteAddress
-              } ]\n[ Route: ${req.originalUrl} ]\n[ Date and time: ${[
-                info.timestamp,
-              ]} ]\n[ Message: ${info.message} ]\n\n`,
-          ),
+          winston.format.printf(info => {
+            const clientIp = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+            const route = req.originalUrl;
+            const operationalError = error instanceof AppError ? true : false;
+            const dateTime = info.timestamp;
+            const message = info.message;
+
+            return `[ Client IP: ${clientIp} ]\n[ Route: ${route} ]\n[ Operational: ${operationalError} ]\n[ Date and time: ${dateTime} ]\n[ Message: ${message} ]\n\n`;
+          }),
         );
 
         const errorLogSettings = {

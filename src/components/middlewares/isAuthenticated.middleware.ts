@@ -1,6 +1,6 @@
-import jwt, { ITokenPayLoad } from "@config/auth/jwt";
-import FindOneUserByIdRepository from "@modules/users/repositories/FindOneUserById.repository";
-import AppError from "@shared/errors/AppError";
+import jwt, { ITokenPayLoad } from "@components/config/auth/jwt";
+import FindOneUserRepository from "@modules/users/repositories/FindOneUser.repository";
+import AppError from "src/components/errors/AppError";
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
@@ -22,7 +22,7 @@ export default async function isAuthenticated(
     const decodedToken = verify(token, jwt.secret);
     const { sub, name, type } = decodedToken as ITokenPayLoad;
 
-    const isUser = Object.create(await FindOneUserByIdRepository.execute(sub));
+    const isUser = Object.create(await FindOneUserRepository.execute({ id: sub }));
 
     if (!isUser) {
       throw new AppError(invalidToken);

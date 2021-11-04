@@ -11,13 +11,13 @@ export default class CreateOneUserController {
   async handle(req: Request, res: Response): Promise<Response | undefined> {
     const { name, email, phone, password } = req.body;
 
-    const createNewUser = await this.createOneUserUseCase.execute({
+    const newUser = await this.createOneUserUseCase.execute({
       name,
       email,
       phone,
       password,
     });
 
-    return res.status(201).json(createNewUser);
+    return res.status(201).json(newUser);
   }
 }

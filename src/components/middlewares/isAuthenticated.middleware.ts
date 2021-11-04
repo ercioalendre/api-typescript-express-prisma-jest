@@ -1,6 +1,6 @@
 import jwt, { ITokenPayLoad } from "@requirements/dto/users/IJwt.dto";
 import GetOneUserRepository from "@repositories/users/implementations/prisma/GetOneUser.repository";
-import AppError from "src/components/errors/AppError";
+import AppError from "@components/errors/AppError";
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 

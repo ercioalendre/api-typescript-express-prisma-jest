@@ -5,12 +5,18 @@ import CreateUserSessionController from "@requirements/users/controllers/CreateU
 import checkLoginUserForm from "@components/middlewares/checkLoginUserForm.middleware";
 import UpdateOneUserController from "@requirements/users/controllers/UpdateOneUser.controller";
 import isAuthenticated from "@components/middlewares/isAuthenticated.middleware";
-import GetAllUsersController from "../controllers/GetAllUsers.controller";
+import GetAllUsersController from "@requirements/users/controllers/GetAllUsers.controller";
+import GetOneUserController from "@requirements/users/controllers/GetOneUser.controller";
+import DeleteOneUserController from "@requirements/users/controllers/DeleteOneUser.controller";
 
 const UsersRouter = Router();
 
 UsersRouter.post("/", checkLoginUserForm, (request, response) => {
   return new CreateUserSessionController().handle(request, response);
+});
+
+UsersRouter.get("/users/show/:id", isAuthenticated, (request, response) => {
+  return new GetOneUserController().handle(request, response);
 });
 
 UsersRouter.get("/users/list", isAuthenticated, (request, response) => {
@@ -23,6 +29,10 @@ UsersRouter.post("/users/create", checkNewUserForm, (request, response) => {
 
 UsersRouter.put("/users/update", isAuthenticated, (request, response) => {
   return new UpdateOneUserController().handle(request, response);
+});
+
+UsersRouter.delete("/users/delete/:id", isAuthenticated, (request, response) => {
+  return new DeleteOneUserController().handle(request, response);
 });
 
 export default UsersRouter;

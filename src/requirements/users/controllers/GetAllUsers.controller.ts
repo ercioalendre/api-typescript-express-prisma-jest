@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import GetAllUsersUseCase from "../useCases/GetAllUsers.useCase";
+import GetAllUsersUseCase from "@requirements/users/useCases/GetAllUsers.useCase";
 
 export default class GetAllUsersController {
   private getAllUsersUseCase: GetAllUsersUseCase;

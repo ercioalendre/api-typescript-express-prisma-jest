@@ -8,12 +8,26 @@ export class User {
   public phone: string;
   public createdAt?: Date;
   public updatedAt?: Date;
+  public SocialMedias: {
+    readonly id: string;
+    facebook?: string;
+    twitter?: string;
+    instagram?: string;
+    youtube?: string;
+    linkedin?: string;
+  };
 
-  constructor(props: Omit<User, "id">, id?: string) {
+  constructor(props: Omit<User, "id" | "SocialMedias">, id?: string, socialMediasId?: string) {
     Object.assign(this, props);
 
     if (!id) {
       this.id = uuid();
+    }
+
+    if (!socialMediasId) {
+      this.SocialMedias = {
+        id: uuid(),
+      };
     }
   }
 }

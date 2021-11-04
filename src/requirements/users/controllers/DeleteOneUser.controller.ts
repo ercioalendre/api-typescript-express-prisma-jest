@@ -20,8 +20,12 @@ export default class DeleteOneUserController {
       });
     }
 
-    const createNewUser = await this.deleteOneUserUseCase.execute({ id });
+    const deletedUser = await this.deleteOneUserUseCase.execute({ id });
 
-    return res.status(201).json(createNewUser);
+    return res.status(200).json({
+      data: deletedUser,
+      code: 200,
+      message: "Usuário excluído com sucesso.",
+    });
   }
 }

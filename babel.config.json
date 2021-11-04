@@ -11,8 +11,11 @@
     ["module-resolver",
       {
     "alias": {
-          "@modules": "./src/modules",
-          "@components": "./src/components"
+          "@src": "./src",
+          "@components": "./src/components",
+          "@entities": "./src/entities",
+          "@repositories": "./src/repositories",
+          "@requirements": "./src/requirements"
         }
       }
     ],

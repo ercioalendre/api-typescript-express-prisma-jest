@@ -4,7 +4,7 @@ import "express-async-errors";
 import winston from "winston";
 import helmet from "helmet";
 import cors from "cors";
-import routes from "src/routes";
+import router from "src/router";
 import AppError, { isOperationalError } from "src/components/errors/AppError";
 import express, { Express, NextFunction, Request, Response } from "express";
 
@@ -34,7 +34,7 @@ class AppController {
   }
 
   routes() {
-    this.express.use(routes);
+    this.express.use(router);
   }
 
   errorHandler() {

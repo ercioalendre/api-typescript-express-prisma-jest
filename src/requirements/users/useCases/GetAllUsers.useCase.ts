@@ -17,7 +17,7 @@ export default class GetAllUsersUseCase {
     } else {
       throw new AppError({
         message: "Nenhum usuário encontrado.",
-        statusCode: 204,
+        statusCode: 400,
       });
     }
   }

@@ -20,5 +20,22 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
+  SocialMedias SocialMedia?
+
   @@map("users")
+}
+
+model SocialMedia {
+  id        String   @id @unique
+  User      User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id   String   @unique @db.Uuid
+  facebook  String?
+  twitter   String?
+  instagram String?
+  youtube   String?
+  linkedin  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("social_medias")
 }

@@ -15,7 +15,7 @@ export default class UpdateOneUserController {
 
     if (!id || !uuidValidate(id)) {
       throw new AppError({
-        message: "O usuário que você está tentando editar não foi encontrado.",
+        message: "O ID do usuário que você está tentando editar é inválido.",
         statusCode: 400,
       });
     }

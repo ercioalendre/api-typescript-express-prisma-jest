@@ -1,3 +1,4 @@
+import prismaClient from "@components/providers/prismaClient.provider";
 import { User } from "@entities/User.entity";
 import { PrismaClient } from "@prisma/client";
 import { ICreateOneUserRepository } from "@repositories/users/ICreateOneUser.repository";
@@ -7,7 +8,7 @@ export default class CreateOneUserRepository implements ICreateOneUserRepository
   public prisma: PrismaClient;
 
   constructor() {
-    this.prisma = new PrismaClient();
+    this.prisma = prismaClient;
   }
 
   async execute(data: IUserDto): Promise<User | null> {

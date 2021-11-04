@@ -20,7 +20,7 @@ export default class UpdateOneUserController {
       });
     }
 
-    const createNewUser = await this.updateOneUserUseCase.execute({
+    const updatedUser = await this.updateOneUserUseCase.execute({
       id,
       name,
       email,
@@ -28,6 +28,6 @@ export default class UpdateOneUserController {
       password,
     });
 
-    return res.status(201).json(createNewUser);
+    return res.status(201).json(updatedUser);
   }
 }

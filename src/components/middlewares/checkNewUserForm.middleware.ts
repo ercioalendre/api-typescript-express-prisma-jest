@@ -3,8 +3,8 @@ import { NextFunction, Request, Response } from "express";
 
 export default function checkNewUserForm(req: Request, res: Response, next: NextFunction): void {
   let message = "";
-  const { full_name, email, phone, access_level, password } = req.body;
-  const formData = { full_name, email, phone, access_level, password };
+  const { name, email, phone, password } = req.body;
+  const formData = { name, email, phone, password };
   const inputError: string[] = [];
 
   const regName = new RegExp("^[a-zA-Z]{2,}(?: [a-zA-Z]+){1,}$");
@@ -15,7 +15,7 @@ export default function checkNewUserForm(req: Request, res: Response, next: Next
     if (!value || value == "" || value == undefined) {
       inputError.push(key);
       let keyName;
-      if (key === "full_name") keyName = "nome completo";
+      if (key === "name") keyName = "nome completo";
       if (key === "email") keyName = "e-mail";
       if (key === "phone") keyName = "telefone";
       if (key === "password") keyName = "senha";

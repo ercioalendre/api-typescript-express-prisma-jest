@@ -1,4 +1,4 @@
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 
 export class User {
   public readonly id: string;
@@ -6,6 +6,8 @@ export class User {
   public email: string;
   public password: string;
   public phone: string;
+  public createdAt?: Date;
+  public updatedAt?: Date;
 
   constructor(props: Omit<User, "id">, id?: string) {
     Object.assign(this, props);

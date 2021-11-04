@@ -15,10 +15,9 @@ export default class DeleteOneUserRepository implements IDeleteOneUserRepository
     const users = this.prisma.user;
 
     try {
-      await users.delete({
+      return await users.delete({
         where: id,
       });
-      return "Usuário excluído com sucesso!";
     } catch (error) {
       throw new Error(error as string);
     }

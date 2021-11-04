@@ -1,6 +1,6 @@
 import { User } from "@entities/User.entity";
-import { Prisma } from "@prisma/client";
+import IUserUniqueFieldsDto from "@requirements/dto/users/IUserUniqueFields.dto";
 
 export interface IGetOneUserRepository {
-  execute(colunmAndValue: Prisma.UserWhereUniqueInput): Promise<User | null>;
+  execute(colunmAndValue: IUserUniqueFieldsDto): Promise<User | null>;
 }

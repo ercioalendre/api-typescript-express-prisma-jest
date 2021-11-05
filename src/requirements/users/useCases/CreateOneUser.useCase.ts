@@ -1,7 +1,7 @@
 import AppError from "@components/errors/AppError";
 import GetOneUserRepository from "@repositories/users/implementations/prisma/GetOneUser.repository";
 import CreateOneUserRepository from "@repositories/users/implementations/prisma/CreateOneUser.repository";
-import { User } from "@entities/User.entity";
+import { User as PrismaUserObject } from "@prisma/client";
 import IUserDto from "@requirements/dto/users/IUser.dto";
 import { hash } from "bcryptjs";
 
@@ -14,7 +14,7 @@ export default class CreateOneUserUseCase {
     this.createOneUserRepository = new CreateOneUserRepository();
   }
 
-  async execute(data: IUserDto): Promise<User | null | undefined> {
+  async execute(data: IUserDto): Promise<PrismaUserObject | null | undefined> {
     const emailExists = await this.getOneUserRepository.execute({ email: data.email });
 
     if (emailExists) {

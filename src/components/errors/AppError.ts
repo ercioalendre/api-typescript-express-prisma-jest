@@ -6,8 +6,8 @@ export function isOperationalError(error: Error): boolean | undefined {
 }
 
 export default class AppError extends Error {
-  public readonly message: string;
-  public readonly statusCode: number;
+  public readonly message!: string;
+  public readonly statusCode!: number;
   public readonly inputError?: string[] = [];
   public readonly operationalError?: boolean = true;
 

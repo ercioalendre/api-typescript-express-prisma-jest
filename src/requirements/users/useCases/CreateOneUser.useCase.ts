@@ -4,10 +4,12 @@ import CreateOneUserRepository from "@repositories/users/implementations/prisma/
 import { User as PrismaUserObject } from "@prisma/client";
 import IUserDto from "@requirements/dto/users/IUser.dto";
 import { hash } from "bcryptjs";
+import { IGetOneUserRepository } from "@repositories/users/IGetOneUser.repository";
+import { ICreateOneUserRepository } from "@repositories/users/ICreateOneUser.repository";
 
 export default class CreateOneUserUseCase {
-  private getOneUserRepository: GetOneUserRepository;
-  private createOneUserRepository: CreateOneUserRepository;
+  private getOneUserRepository: IGetOneUserRepository;
+  private createOneUserRepository: ICreateOneUserRepository;
 
   constructor() {
     this.getOneUserRepository = new GetOneUserRepository();

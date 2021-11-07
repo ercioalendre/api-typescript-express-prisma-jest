@@ -3,10 +3,12 @@ import AppError from "@components/errors/AppError";
 import GetOneUserRepository from "@repositories/users/implementations/prisma/GetOneUser.repository";
 import DeleteOneUserRepository from "@repositories/users/implementations/prisma/DeleteOneUser.repository";
 import IUserUniqueFieldsDto from "@requirements/dto/users/IUserUniqueFields.dto";
+import { IGetOneUserRepository } from "@repositories/users/IGetOneUser.repository";
+import { IDeleteOneUserRepository } from "@repositories/users/IDeleteOneUser.repository";
 
 export default class DeleteOneUserUseCase {
-  private getOneUserRepository: GetOneUserRepository;
-  private deleteOneUserRepository: DeleteOneUserRepository;
+  private getOneUserRepository: IGetOneUserRepository;
+  private deleteOneUserRepository: IDeleteOneUserRepository;
 
   constructor() {
     this.getOneUserRepository = new GetOneUserRepository();

@@ -4,9 +4,10 @@ import { sign } from "jsonwebtoken";
 import AppError from "@components/errors/AppError";
 import IUserSessionDto from "@requirements/dto/users/IUserSession.dto";
 import GetOneUserRepository from "@repositories/users/implementations/prisma/GetOneUser.repository";
+import { IGetOneUserRepository } from "@repositories/users/IGetOneUser.repository";
 
 export default class CreateSysUserSessionService {
-  private getOneUserRepository: GetOneUserRepository;
+  private getOneUserRepository: IGetOneUserRepository;
 
   constructor() {
     this.getOneUserRepository = new GetOneUserRepository();

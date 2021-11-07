@@ -1,9 +1,10 @@
 import AppError from "@components/errors/AppError";
 import { User } from "@entities/User.entity";
+import { IGetAllUsersRepository } from "@repositories/users/IGetAllUsers.repository";
 import GetAllUsersRepository from "@repositories/users/implementations/prisma/GetAllUsers.repository";
 
 export default class GetAllUsersUseCase {
-  private getAllUsersRepository: GetAllUsersRepository;
+  private getAllUsersRepository: IGetAllUsersRepository;
 
   constructor() {
     this.getAllUsersRepository = new GetAllUsersRepository();

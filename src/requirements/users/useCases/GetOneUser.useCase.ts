@@ -1,10 +1,11 @@
 import AppError from "@components/errors/AppError";
 import { User } from "@entities/User.entity";
+import { IGetOneUserRepository } from "@repositories/users/IGetOneUser.repository";
 import GetOneUserRepository from "@repositories/users/implementations/prisma/GetOneUser.repository";
 import IUserUniqueFieldsDto from "@requirements/dto/users/IUserUniqueFields.dto";
 
 export default class GetAllUsersUseCase {
-  private getOneUserRepository: GetOneUserRepository;
+  private getOneUserRepository: IGetOneUserRepository;
 
   constructor() {
     this.getOneUserRepository = new GetOneUserRepository();

@@ -5,10 +5,12 @@ import IUserDto from "@requirements/dto/users/IUser.dto";
 import UpdateOneUserRepository from "@repositories/users/implementations/prisma/UpdateOneUser.repository";
 import CheckFields from "@components/providers/CheckFields.provider";
 import { hash } from "bcryptjs";
+import { IGetOneUserRepository } from "@repositories/users/IGetOneUser.repository";
+import { IUpdateOneUserRepository } from "@repositories/users/IUpdateOneUser.repository";
 
 export default class UpdateOneUserUseCase {
-  private getOneUserRepository: GetOneUserRepository;
-  private updateOneUserRepository: UpdateOneUserRepository;
+  private getOneUserRepository: IGetOneUserRepository;
+  private updateOneUserRepository: IUpdateOneUserRepository;
 
   constructor() {
     this.getOneUserRepository = new GetOneUserRepository();

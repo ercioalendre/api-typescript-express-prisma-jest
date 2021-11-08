@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import CreateOneUserUseCase from "@requirements/users/useCases/CreateOneUser.useCase";
+import { createOneUserUseCase } from "@requirements/users/useCases/CreateOneUser.useCase";
+import { ICreateOneUserUseCase } from "../useCases/interfaces/ICreateOneUser.useCase";
 
-export default class CreateOneUserController {
-  private createOneUserUseCase: CreateOneUserUseCase;
+export class CreateOneUserController {
+  private createOneUserUseCase: ICreateOneUserUseCase;
 
   constructor() {
-    this.createOneUserUseCase = new CreateOneUserUseCase();
+    this.createOneUserUseCase = createOneUserUseCase();
   }
 
   async handle(req: Request, res: Response): Promise<Response | undefined> {

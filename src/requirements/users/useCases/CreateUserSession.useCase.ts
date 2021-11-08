@@ -1,16 +1,17 @@
-import jwt from "@requirements/dto/users/IJwt.dto";
+import { jwt } from "@requirements/dto/users/IJwt.dto";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import AppError from "@components/errors/AppError";
-import IUserSessionDto from "@requirements/dto/users/IUserSession.dto";
-import GetOneUserRepository from "@repositories/users/implementations/prisma/GetOneUser.repository";
-import { IGetOneUserRepository } from "@repositories/users/IGetOneUser.repository";
+import { appError } from "@components/errors/AppError";
+import { IUserSessionDto } from "@requirements/dto/users/IUserSession.dto";
+import { getOneUserRepository } from "@repositories/users/implementations/prisma/GetOneUser.repository";
+import { IGetOneUserRepository } from "@repositories/users/interfaces/IGetOneUser.repository";
+import { ICreateUserSessionUseCase } from "./interfaces/ICreateUserSession.useCase";
 
-export default class CreateSysUserSessionService {
+class CreateUserSessionUseCase implements ICreateUserSessionUseCase {
   private getOneUserRepository: IGetOneUserRepository;
 
   constructor() {
-    this.getOneUserRepository = new GetOneUserRepository();
+    this.getOneUserRepository = getOneUserRepository();
   }
 
   async execute(email: string, password: string): Promise<IUserSessionDto> {
@@ -19,7 +20,7 @@ export default class CreateSysUserSessionService {
     const passwordComparison = await compare(password, userPassword);
 
     if (!user || !passwordComparison) {
-      throw new AppError({
+      throw appError({
         message: "E-mail ou senha incorretos.",
         statusCode: 401,
       });
@@ -37,4 +38,8 @@ export default class CreateSysUserSessionService {
       token,
     };
   }
+}
+
+export function createUserSessionUseCase(): CreateUserSessionUseCase {
+  return new CreateUserSessionUseCase();
 }

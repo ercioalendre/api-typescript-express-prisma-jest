@@ -1,12 +1,12 @@
-import AppError from "@components/errors/AppError";
+import { appError } from "@components/errors/AppError";
 
-export default class CheckFields {
+export class CheckFields {
   static inputName(name: string): void | boolean {
     if (name) {
       const regName = new RegExp("^[a-zA-Z]{2,}(?: [a-zA-Z]+){1,}$");
 
       if (!regName.test(name)) {
-        throw new AppError({ message: "O nome completo inserido é inválido.", statusCode: 422 });
+        throw appError({ message: "O nome completo inserido é inválido.", statusCode: 422 });
       } else {
         return true;
       }
@@ -20,7 +20,7 @@ export default class CheckFields {
       const regEmail = new RegExp("^[^@\\s]+@[^@\\s]+\\.+[^@\\s]{2,}$");
 
       if (!regEmail.test(email)) {
-        throw new AppError({
+        throw appError({
           message: "O endereço de e-mail inserido é inválido.",
           statusCode: 422,
         });
@@ -37,7 +37,7 @@ export default class CheckFields {
       const regPhone = new RegExp("^(?:\\()[0-9]{2}(?:\\))\\s[0-9]{4,5}(?:-)[0-9]{4}$");
 
       if (!regPhone.test(phone)) {
-        throw new AppError({
+        throw appError({
           message: "O número de telefone inserido é inválido.",
           statusCode: 422,
         });
@@ -52,7 +52,7 @@ export default class CheckFields {
   static inputPassword(password: string): void | boolean {
     if (password) {
       if (password.length < 6) {
-        throw new AppError({
+        throw appError({
           message: "A senha inserida deve conter seis ou mais caracteres.",
           statusCode: 422,
         });

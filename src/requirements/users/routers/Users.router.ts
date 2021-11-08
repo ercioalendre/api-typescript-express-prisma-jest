@@ -1,13 +1,13 @@
 import { Router } from "express";
-import checkNewUserForm from "@components/middlewares/checkNewUserForm.middleware";
-import CreateOneUserController from "@requirements/users/controllers/CreateOneUser.controller";
-import CreateUserSessionController from "@requirements/users/controllers/CreateUserSession.controller";
-import checkLoginUserForm from "@components/middlewares/checkLoginUserForm.middleware";
-import UpdateOneUserController from "@requirements/users/controllers/UpdateOneUser.controller";
-import isAuthenticated from "@components/middlewares/isAuthenticated.middleware";
-import GetAllUsersController from "@requirements/users/controllers/GetAllUsers.controller";
-import GetOneUserController from "@requirements/users/controllers/GetOneUser.controller";
-import DeleteOneUserController from "@requirements/users/controllers/DeleteOneUser.controller";
+import { checkNewUserForm } from "@components/middlewares/checkNewUserForm.middleware";
+import { CreateOneUserController } from "@requirements/users/controllers/CreateOneUser.controller";
+import { CreateUserSessionController } from "@requirements/users/controllers/CreateUserSession.controller";
+import { checkLoginUserForm } from "@components/middlewares/checkLoginUserForm.middleware";
+import { UpdateOneUserController } from "@requirements/users/controllers/UpdateOneUser.controller";
+import { isAuthenticated } from "@components/middlewares/isAuthenticated.middleware";
+import { GetAllUsersController } from "@requirements/users/controllers/GetAllUsers.controller";
+import { GetOneUserController } from "@requirements/users/controllers/GetOneUser.controller";
+import { DeleteOneUserController } from "@requirements/users/controllers/DeleteOneUser.controller";
 
 const UsersRouter = Router();
 

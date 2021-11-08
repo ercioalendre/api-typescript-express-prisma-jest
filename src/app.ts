@@ -5,7 +5,7 @@ import winston from "winston";
 import helmet from "helmet";
 import cors from "cors";
 import router from "./router";
-import AppError, { isOperationalError } from "./components/errors/AppError";
+import { AppError, isOperationalError } from "./components/errors/AppError";
 import express, { Express, NextFunction, Request, Response } from "express";
 
 class AppController {

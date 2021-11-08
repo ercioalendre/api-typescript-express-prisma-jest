@@ -1,20 +1,21 @@
 import { Request, Response } from "express";
-import GetOneUserUseCase from "@requirements/users/useCases/GetOneUser.useCase";
-import AppError from "@components/errors/AppError";
+import { getOneUserUseCase } from "@requirements/users/useCases/GetOneUser.useCase";
+import { appError } from "@components/errors/AppError";
 import { validate as uuidValidate } from "uuid";
+import { IGetOneUserUseCase } from "@requirements/users/useCases/interfaces/IGetOneUser.useCase";
 
-export default class GetOneUserController {
-  private getOneUserUseCase: GetOneUserUseCase;
+export class GetOneUserController {
+  private getOneUserUseCase: IGetOneUserUseCase;
 
   constructor() {
-    this.getOneUserUseCase = new GetOneUserUseCase();
+    this.getOneUserUseCase = getOneUserUseCase();
   }
 
   async handle(req: Request, res: Response): Promise<Response | undefined> {
     const { id } = req.params;
 
     if (!id || !uuidValidate(id)) {
-      throw new AppError({
+      throw appError({
         message: "O usuário que você está tentando exibir não foi encontrado.",
         statusCode: 400,
       });

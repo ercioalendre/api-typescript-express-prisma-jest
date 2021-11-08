@@ -1,20 +1,21 @@
 import { Request, Response } from "express";
-import AppError from "@components/errors/AppError";
+import { appError } from "@components/errors/AppError";
 import { validate as uuidValidate } from "uuid";
-import DeleteOneUserUseCase from "@requirements/users/useCases/DeleteOneUser.useCase";
+import { deleteOneUserUseCase } from "@requirements/users/useCases/DeleteOneUser.useCase";
+import { IDeleteOneUserUseCase } from "@requirements/users/useCases/interfaces/IDeleteOneUser.useCase";
 
-export default class DeleteOneUserController {
-  private deleteOneUserUseCase: DeleteOneUserUseCase;
+export class DeleteOneUserController {
+  private deleteOneUserUseCase: IDeleteOneUserUseCase;
 
   constructor() {
-    this.deleteOneUserUseCase = new DeleteOneUserUseCase();
+    this.deleteOneUserUseCase = deleteOneUserUseCase();
   }
 
   async handle(req: Request, res: Response): Promise<Response | undefined> {
     const { id } = req.params;
 
     if (!id || !uuidValidate(id)) {
-      throw new AppError({
+      throw appError({
         message: "O ID do usuário que você está tentando excluir é inválido.",
         statusCode: 400,
       });

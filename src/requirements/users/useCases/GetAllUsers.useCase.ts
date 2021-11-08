@@ -1,13 +1,14 @@
-import AppError from "@components/errors/AppError";
+import { appError } from "@components/errors/AppError";
 import { User } from "@entities/User.entity";
-import { IGetAllUsersRepository } from "@repositories/users/IGetAllUsers.repository";
-import GetAllUsersRepository from "@repositories/users/implementations/prisma/GetAllUsers.repository";
+import { IGetAllUsersRepository } from "@repositories/users/interfaces/IGetAllUsers.repository";
+import { getAllUsersRepository } from "@repositories/users/implementations/prisma/GetAllUsers.repository";
+import { IGetAllUsersUseCase } from "./interfaces/IGetAllUsers.useCase";
 
-export default class GetAllUsersUseCase {
+class GetAllUsersUseCase implements IGetAllUsersUseCase {
   private getAllUsersRepository: IGetAllUsersRepository;
 
   constructor() {
-    this.getAllUsersRepository = new GetAllUsersRepository();
+    this.getAllUsersRepository = getAllUsersRepository();
   }
 
   async execute(): Promise<User[] | null | void> {
@@ -16,10 +17,14 @@ export default class GetAllUsersUseCase {
     if (users && users.length >= 1) {
       return users;
     } else {
-      throw new AppError({
+      throw appError({
         message: "Nenhum usuário encontrado.",
         statusCode: 400,
       });
     }
   }
+}
+
+export function getAllUsersUseCase(): GetAllUsersUseCase {
+  return new GetAllUsersUseCase();
 }

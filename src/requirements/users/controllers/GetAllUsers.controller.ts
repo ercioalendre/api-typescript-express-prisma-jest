@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import GetAllUsersUseCase from "@requirements/users/useCases/GetAllUsers.useCase";
+import { getAllUsersUseCase } from "@requirements/users/useCases/GetAllUsers.useCase";
+import { IGetAllUsersUseCase } from "@requirements/users/useCases/interfaces/IGetAllUsers.useCase";
 
-export default class GetAllUsersController {
-  private getAllUsersUseCase: GetAllUsersUseCase;
+export class GetAllUsersController {
+  private getAllUsersUseCase: IGetAllUsersUseCase;
 
   constructor() {
-    this.getAllUsersUseCase = new GetAllUsersUseCase();
+    this.getAllUsersUseCase = getAllUsersUseCase();
   }
 
   async handle(req: Request, res: Response): Promise<Response | undefined> {

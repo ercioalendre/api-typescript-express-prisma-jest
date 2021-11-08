@@ -1,10 +1,10 @@
-import prismaClient from "@components/providers/prismaClient.provider";
+import { prismaClient } from "@components/providers/prismaClient.provider";
 import { User } from "@entities/User.entity";
 import { PrismaClient } from "@prisma/client";
-import { IGetOneUserRepository } from "@repositories/users/IGetOneUser.repository";
-import IUserUniqueFieldsDto from "@requirements/dto/users/IUserUniqueFields.dto";
+import { IGetOneUserRepository } from "@repositories/users/interfaces/IGetOneUser.repository";
+import { IUserUniqueFieldsDto } from "@requirements/dto/users/IUserUniqueFields.dto";
 
-export default class GetOneUserRepository implements IGetOneUserRepository {
+class GetOneUserRepository implements IGetOneUserRepository {
   public prisma: PrismaClient;
 
   constructor() {
@@ -15,11 +15,15 @@ export default class GetOneUserRepository implements IGetOneUserRepository {
     const users = this.prisma.user;
 
     try {
-      return await users.findUnique({
+      return (await users.findUnique({
         where: colunmAndValue,
-      });
+      })) as User;
     } catch (error) {
       throw new Error(error as string);
     }
   }
+}
+
+export function getOneUserRepository(): GetOneUserRepository {
+  return new GetOneUserRepository();
 }

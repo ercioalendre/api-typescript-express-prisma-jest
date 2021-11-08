@@ -1,9 +1,9 @@
-import prismaClient from "@components/providers/prismaClient.provider";
+import { prismaClient } from "@components/providers/prismaClient.provider";
 import { User } from "@entities/User.entity";
 import { PrismaClient } from "@prisma/client";
-import { IGetAllUsersRepository } from "@repositories/users/IGetAllUsers.repository";
+import { IGetAllUsersRepository } from "@repositories/users/interfaces/IGetAllUsers.repository";
 
-export default class GetAllUsersRepository implements IGetAllUsersRepository {
+class GetAllUsersRepository implements IGetAllUsersRepository {
   public prisma: PrismaClient;
 
   constructor() {
@@ -18,4 +18,8 @@ export default class GetAllUsersRepository implements IGetAllUsersRepository {
       throw new Error(error as string);
     }
   }
+}
+
+export function getAllUsersRepository(): GetAllUsersRepository {
+  return new GetAllUsersRepository();
 }

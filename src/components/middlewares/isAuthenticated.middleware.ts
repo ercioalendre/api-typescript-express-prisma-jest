@@ -1,10 +1,10 @@
-import jwt, { ITokenPayLoad } from "@requirements/dto/users/IJwt.dto";
-import GetOneUserRepository from "@repositories/users/implementations/prisma/GetOneUser.repository";
-import AppError from "@components/errors/AppError";
+import { jwt, ITokenPayLoad } from "@requirements/dto/users/IJwt.dto";
+import { getOneUserRepository } from "@repositories/users/implementations/prisma/GetOneUser.repository";
+import { appError } from "@components/errors/AppError";
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
-export default async function isAuthenticated(
+export async function isAuthenticated(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -13,7 +13,7 @@ export default async function isAuthenticated(
   const [, token] = headerAuth.split(" ");
 
   if (!token) {
-    throw new AppError({ message: "Token is missing.", statusCode: 401 });
+    throw appError({ message: "Token is missing.", statusCode: 401 });
   }
 
   const invalidToken = { message: "Invalid token.", statusCode: 401 };
@@ -22,10 +22,10 @@ export default async function isAuthenticated(
     const decodedToken = verify(token, jwt.secret);
     const { sub, name, type } = decodedToken as ITokenPayLoad;
 
-    const isUser = Object.create(await new GetOneUserRepository().execute({ id: sub }));
+    const isUser = Object.create(await getOneUserRepository().execute({ id: sub }));
 
     if (!isUser) {
-      throw new AppError(invalidToken);
+      throw appError(invalidToken);
     }
 
     const firstName = name.split(" ")[0];
@@ -38,6 +38,6 @@ export default async function isAuthenticated(
 
     return next();
   } catch {
-    throw new AppError(invalidToken);
+    throw appError(invalidToken);
   }
 }

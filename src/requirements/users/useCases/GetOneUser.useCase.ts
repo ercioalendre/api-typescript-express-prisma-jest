@@ -1,14 +1,15 @@
-import AppError from "@components/errors/AppError";
+import { appError } from "@components/errors/AppError";
 import { User } from "@entities/User.entity";
-import { IGetOneUserRepository } from "@repositories/users/IGetOneUser.repository";
-import GetOneUserRepository from "@repositories/users/implementations/prisma/GetOneUser.repository";
-import IUserUniqueFieldsDto from "@requirements/dto/users/IUserUniqueFields.dto";
+import { IGetOneUserRepository } from "@repositories/users/interfaces/IGetOneUser.repository";
+import { getOneUserRepository } from "@repositories/users/implementations/prisma/GetOneUser.repository";
+import { IUserUniqueFieldsDto } from "@requirements/dto/users/IUserUniqueFields.dto";
+import { IGetOneUserUseCase } from "./interfaces/IGetOneUser.useCase";
 
-export default class GetAllUsersUseCase {
+class GetOneUserUseCase implements IGetOneUserUseCase {
   private getOneUserRepository: IGetOneUserRepository;
 
   constructor() {
-    this.getOneUserRepository = new GetOneUserRepository();
+    this.getOneUserRepository = getOneUserRepository();
   }
 
   async execute(id: IUserUniqueFieldsDto): Promise<User | null | void> {
@@ -17,10 +18,14 @@ export default class GetAllUsersUseCase {
     if (user) {
       return user;
     } else {
-      throw new AppError({
+      throw appError({
         message: "Nenhum usuário encontrado.",
         statusCode: 400,
       });
     }
   }
+}
+
+export function getOneUserUseCase(): GetOneUserUseCase {
+  return new GetOneUserUseCase();
 }

@@ -1,4 +1,4 @@
-export default interface IUserSessionDto {
+export interface IUserSessionDto {
   id: string;
   token: string;
 }

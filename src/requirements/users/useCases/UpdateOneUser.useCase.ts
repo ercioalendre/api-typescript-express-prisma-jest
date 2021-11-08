@@ -1,27 +1,28 @@
-import AppError from "@components/errors/AppError";
-import GetOneUserRepository from "@repositories/users/implementations/prisma/GetOneUser.repository";
+import { appError } from "@components/errors/AppError";
+import { getOneUserRepository } from "@repositories/users/implementations/prisma/GetOneUser.repository";
 import { User } from "@entities/User.entity";
-import IUserDto from "@requirements/dto/users/IUser.dto";
-import UpdateOneUserRepository from "@repositories/users/implementations/prisma/UpdateOneUser.repository";
-import CheckFields from "@components/providers/CheckFields.provider";
+import { IUserDto } from "@requirements/dto/users/IUser.dto";
+import { updateOneUserRepository } from "@repositories/users/implementations/prisma/UpdateOneUser.repository";
+import { CheckFields } from "@components/providers/CheckFields.provider";
 import { hash } from "bcryptjs";
-import { IGetOneUserRepository } from "@repositories/users/IGetOneUser.repository";
-import { IUpdateOneUserRepository } from "@repositories/users/IUpdateOneUser.repository";
+import { IGetOneUserRepository } from "@repositories/users/interfaces/IGetOneUser.repository";
+import { IUpdateOneUserRepository } from "@repositories/users/interfaces/IUpdateOneUser.repository";
+import { IUpdateOneUserUseCase } from "./interfaces/IUpdateOneUser.useCase";
 
-export default class UpdateOneUserUseCase {
+class UpdateOneUserUseCase implements IUpdateOneUserUseCase {
   private getOneUserRepository: IGetOneUserRepository;
   private updateOneUserRepository: IUpdateOneUserRepository;
 
   constructor() {
-    this.getOneUserRepository = new GetOneUserRepository();
-    this.updateOneUserRepository = new UpdateOneUserRepository();
+    this.getOneUserRepository = getOneUserRepository();
+    this.updateOneUserRepository = updateOneUserRepository();
   }
 
   async execute(data: IUserDto): Promise<User | null | undefined> {
     const user = await this.getOneUserRepository.execute({ id: data.id });
 
     if (!user) {
-      throw new AppError({
+      throw appError({
         message: "O usuário que você está tentando editar não existe.",
         statusCode: 400,
       });
@@ -37,12 +38,12 @@ export default class UpdateOneUserUseCase {
 
         if (emailExists) {
           if (emailExists.id === user.id) {
-            throw new AppError({
+            throw appError({
               message: "Você já está usando o e-mail que está tentando alterar.",
               statusCode: 400,
             });
           } else {
-            throw new AppError({
+            throw appError({
               message: "O e-mail que você está tentando utilizar já está em uso.",
               statusCode: 400,
             });
@@ -65,10 +66,14 @@ export default class UpdateOneUserUseCase {
 
       return await this.updateOneUserRepository.execute(data);
     } else {
-      throw new AppError({
+      throw appError({
         message: "Não foi possível editar este usuário: dados inválidos.",
         statusCode: 500,
       });
     }
   }
+}
+
+export function updateOneUserUseCase(): UpdateOneUserUseCase {
+  return new UpdateOneUserUseCase();
 }

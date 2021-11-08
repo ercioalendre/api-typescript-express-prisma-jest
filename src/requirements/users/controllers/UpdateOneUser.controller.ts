@@ -1,20 +1,21 @@
 import { Request, Response } from "express";
-import UpdateOneUserUseCase from "@requirements/users/useCases/UpdateOneUser.useCase";
-import AppError from "@components/errors/AppError";
+import { updateOneUserUseCase } from "@requirements/users/useCases/UpdateOneUser.useCase";
+import { appError } from "@components/errors/AppError";
 import { validate as uuidValidate } from "uuid";
+import { IUpdateOneUserUseCase } from "../useCases/interfaces/IUpdateOneUser.useCase";
 
-export default class UpdateOneUserController {
-  private updateOneUserUseCase: UpdateOneUserUseCase;
+export class UpdateOneUserController {
+  private updateOneUserUseCase: IUpdateOneUserUseCase;
 
   constructor() {
-    this.updateOneUserUseCase = new UpdateOneUserUseCase();
+    this.updateOneUserUseCase = updateOneUserUseCase();
   }
 
   async handle(req: Request, res: Response): Promise<Response | undefined> {
     const { id, name, email, phone, password } = req.body;
 
     if (!id || !uuidValidate(id)) {
-      throw new AppError({
+      throw appError({
         message: "O ID do usuário que você está tentando editar é inválido.",
         statusCode: 400,
       });

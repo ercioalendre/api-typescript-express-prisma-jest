@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import CreateUserSessionUseCase from "@requirements/users/useCases/CreateUserSession.useCase";
+import { createUserSessionUseCase } from "@requirements/users/useCases/CreateUserSession.useCase";
+import { ICreateUserSessionUseCase } from "../useCases/interfaces/ICreateUserSession.useCase";
 
-export default class CreateSysUserSessionController {
-  private createUserSessionUseCase: CreateUserSessionUseCase;
+export class CreateUserSessionController {
+  private createUserSessionUseCase: ICreateUserSessionUseCase;
 
   constructor() {
-    this.createUserSessionUseCase = new CreateUserSessionUseCase();
+    this.createUserSessionUseCase = createUserSessionUseCase();
   }
 
   async handle(req: Request, res: Response): Promise<Response | undefined> {

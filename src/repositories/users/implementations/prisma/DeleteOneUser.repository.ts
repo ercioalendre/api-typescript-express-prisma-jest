@@ -1,10 +1,10 @@
-import prismaClient from "@components/providers/prismaClient.provider";
+import { prismaClient } from "@components/providers/prismaClient.provider";
 import { User } from "@entities/User.entity";
 import { PrismaClient } from "@prisma/client";
-import { IDeleteOneUserRepository } from "@repositories/users/IDeleteOneUser.repository";
-import IUserUniqueFieldsDto from "@requirements/dto/users/IUserUniqueFields.dto";
+import { IDeleteOneUserRepository } from "@repositories/users/interfaces/IDeleteOneUser.repository";
+import { IUserUniqueFieldsDto } from "@requirements/dto/users/IUserUniqueFields.dto";
 
-export default class DeleteOneUserRepository implements IDeleteOneUserRepository {
+class DeleteOneUserRepository implements IDeleteOneUserRepository {
   public prisma: PrismaClient;
 
   constructor() {
@@ -15,11 +15,15 @@ export default class DeleteOneUserRepository implements IDeleteOneUserRepository
     const users = this.prisma.user;
 
     try {
-      return await users.delete({
+      return (await users.delete({
         where: id,
-      });
+      })) as User;
     } catch (error) {
       throw new Error(error as string);
     }
   }
+}
+
+export function deleteOneUserRepository(): DeleteOneUserRepository {
+  return new DeleteOneUserRepository();
 }

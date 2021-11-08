@@ -1,7 +1,7 @@
-import AppError from "@components/errors/AppError";
+import { appError } from "@components/errors/AppError";
 import { NextFunction, Request, Response } from "express";
 
-export default function checkNewUserForm(req: Request, res: Response, next: NextFunction): void {
+export function checkNewUserForm(req: Request, res: Response, next: NextFunction): void {
   let message = "";
   const { name, email, phone, password } = req.body;
   const formData = { name, email, phone, password };
@@ -52,7 +52,7 @@ export default function checkNewUserForm(req: Request, res: Response, next: Next
     message = inputError.length <= 1 ? message : "Um ou mais valores inseridos são inválidos.";
 
     if (message) {
-      throw new AppError({ message, statusCode: 400, inputError });
+      throw appError({ message, statusCode: 400, inputError });
     }
   });
 

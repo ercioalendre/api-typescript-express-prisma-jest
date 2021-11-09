@@ -6,10 +6,8 @@ export class User {
   public email!: string;
   public password!: string;
   public phone!: string;
-  public createdAt?: Date;
-  public updatedAt?: Date;
-  public SocialMedias!: {
-    readonly id: string;
+  public SocialMedias?: {
+    readonly id?: string;
     facebook?: string;
     twitter?: string;
     instagram?: string;

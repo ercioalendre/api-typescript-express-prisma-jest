@@ -18,7 +18,7 @@ model User {
   phone     String   @unique
   password  String
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  updatedAt DateTime @updatedAt
 
   SocialMedias SocialMedia?
 
@@ -26,7 +26,7 @@ model User {
 }
 
 model SocialMedia {
-  id        String   @id @unique
+  id        String   @id @unique @db.Uuid
   User      User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id   String   @unique @db.Uuid
   facebook  String?
@@ -35,7 +35,7 @@ model SocialMedia {
   youtube   String?
   linkedin  String?
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  updatedAt DateTime @updatedAt
 
   @@map("social_medias")
 }

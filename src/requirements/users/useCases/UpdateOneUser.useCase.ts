@@ -62,9 +62,9 @@ class UpdateOneUserUseCase implements IUpdateOneUserUseCase {
         user.password = hashedPassword;
       }
 
-      user.updatedAt = new Date();
+      user.SocialMedias = data.SocialMedias;
 
-      return await this.updateOneUserRepository.execute(data);
+      return await this.updateOneUserRepository.execute(user);
     } else {
       throw appError({
         message: "Não foi possível editar este usuário: dados inválidos.",

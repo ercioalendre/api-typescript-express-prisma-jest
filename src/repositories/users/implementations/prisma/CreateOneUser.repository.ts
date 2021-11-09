@@ -21,7 +21,7 @@ class CreateOneUserRepository implements ICreateOneUserRepository {
       SocialMedias: { create: SocialMedias },
     };
 
-    const userData = Object.assign(userWithoutSocialMedias, createSocialMedias);
+    const userData = Object.assign(userWithoutSocialMedias, createSocialMedias) as User;
 
     try {
       return (await users.create({

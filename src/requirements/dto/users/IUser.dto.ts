@@ -5,7 +5,6 @@ export interface IUserDto {
   phone: string;
   password: string;
   SocialMedias?: {
-    id?: string;
     facebook?: string;
     twitter?: string;
     instagram?: string;

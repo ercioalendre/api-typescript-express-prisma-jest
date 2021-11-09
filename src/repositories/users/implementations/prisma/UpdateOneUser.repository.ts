@@ -14,12 +14,23 @@ class UpdateOneUserRepository implements IUpdateOneUserRepository {
   async execute(data: IUserDto): Promise<User | null> {
     const users = this.prisma.user;
 
+    const { SocialMedias, ...userWithoutSocialMedias } = data;
+
+    const createSocialMedias = {
+      SocialMedias: { update: SocialMedias },
+    };
+
+    const userData = Object.assign(userWithoutSocialMedias, createSocialMedias);
+
     try {
       return (await users.update({
         where: {
           id: data.id,
         },
-        data,
+        data: userData,
+        include: {
+          SocialMedias: true,
+        },
       })) as User;
     } catch (error) {
       throw new Error(error as string);

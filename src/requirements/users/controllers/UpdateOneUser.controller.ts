@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { updateOneUserUseCase } from "@requirements/users/useCases/UpdateOneUser.useCase";
 import { appError } from "@components/errors/AppError";
 import { validate as uuidValidate } from "uuid";
-import { IUpdateOneUserUseCase } from "../useCases/interfaces/IUpdateOneUser.useCase";
+import { IUpdateOneUserUseCase } from "@requirements/users/useCases/interfaces/IUpdateOneUser.useCase";
 
 export class UpdateOneUserController {
   private updateOneUserUseCase: IUpdateOneUserUseCase;
@@ -12,7 +12,7 @@ export class UpdateOneUserController {
   }
 
   async handle(req: Request, res: Response): Promise<Response | undefined> {
-    const { id, name, email, phone, password } = req.body;
+    const { id, name, email, phone, password, SocialMedias } = req.body;
 
     if (!id || !uuidValidate(id)) {
       throw appError({
@@ -27,6 +27,7 @@ export class UpdateOneUserController {
       email,
       phone,
       password,
+      SocialMedias,
     });
 
     return res.status(201).json(updatedUser);

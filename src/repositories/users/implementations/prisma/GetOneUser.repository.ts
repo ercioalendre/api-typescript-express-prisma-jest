@@ -17,6 +17,12 @@ class GetOneUserRepository implements IGetOneUserRepository {
     try {
       return (await users.findUnique({
         where: colunmAndValue,
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phone: true,
+        },
       })) as User;
     } catch (error) {
       throw new Error(error as string);

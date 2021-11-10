@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { createUserSessionUseCase } from "@requirements/users/useCases/CreateUserSession.useCase";
-import { ICreateUserSessionUseCase } from "../useCases/interfaces/ICreateUserSession.useCase";
+import { ICreateUserSessionUseCase } from "@requirements/users/useCases/interfaces/ICreateUserSession.useCase";
 
 export class CreateUserSessionController {
   private createUserSessionUseCase: ICreateUserSessionUseCase;

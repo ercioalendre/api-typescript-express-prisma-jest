@@ -6,6 +6,8 @@ export class User {
   public email!: string;
   public password!: string;
   public phone!: string;
+  public updatedAt?: Date;
+  public createdAt?: Date;
   public SocialMedias?: {
     readonly id?: string;
     facebook?: string;
@@ -27,5 +29,7 @@ export class User {
         id: uuid(),
       };
     }
+
+    this.updatedAt = new Date();
   }
 }

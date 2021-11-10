@@ -3,19 +3,20 @@ import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { appError } from "@components/errors/AppError";
 import { IUserSessionDto } from "@requirements/dto/users/IUserSession.dto";
-import { getOneUserRepository } from "@repositories/users/implementations/prisma/GetOneUser.repository";
 import { IGetOneUserRepository } from "@repositories/users/interfaces/IGetOneUser.repository";
-import { ICreateUserSessionUseCase } from "./interfaces/ICreateUserSession.useCase";
+import { ICreateUserSessionUseCase } from "@requirements/users/useCases/interfaces/ICreateUserSession.useCase";
+import { User } from "@entities/User.entity";
+import { getOneUserRepository } from "@requirements/users/implementations";
 
 class CreateUserSessionUseCase implements ICreateUserSessionUseCase {
   private getOneUserRepository: IGetOneUserRepository;
 
   constructor() {
-    this.getOneUserRepository = getOneUserRepository();
+    this.getOneUserRepository = getOneUserRepository;
   }
 
   async execute(email: string, password: string): Promise<IUserSessionDto> {
-    const user = Object.create(await this.getOneUserRepository.execute({ email }));
+    const user = Object.create((await this.getOneUserRepository.execute({ email })) as User);
     const userPassword = user.password || "";
     const passwordComparison = await compare(password, userPassword);
 

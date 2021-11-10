@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { createOneUserUseCase } from "@requirements/users/useCases/CreateOneUser.useCase";
-import { ICreateOneUserUseCase } from "../useCases/interfaces/ICreateOneUser.useCase";
+import { ICreateOneUserUseCase } from "@requirements/users/useCases/interfaces/ICreateOneUser.useCase";
 
 export class CreateOneUserController {
   private createOneUserUseCase: ICreateOneUserUseCase;

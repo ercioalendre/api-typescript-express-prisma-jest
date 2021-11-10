@@ -1,8 +1,9 @@
 import { jwt, ITokenPayLoad } from "@requirements/dto/users/IJwt.dto";
-import { getOneUserRepository } from "@repositories/users/implementations/prisma/GetOneUser.repository";
 import { appError } from "@components/errors/AppError";
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
+import { getOneUserRepository } from "@requirements/users/implementations";
+import { User } from "@entities/User.entity";
 
 export async function isAuthenticated(
   req: Request,
@@ -22,7 +23,7 @@ export async function isAuthenticated(
     const decodedToken = verify(token, jwt.secret);
     const { sub, name, type } = decodedToken as ITokenPayLoad;
 
-    const isUser = Object.create(await getOneUserRepository().execute({ id: sub }));
+    const isUser = Object.create((await getOneUserRepository.execute({ id: sub })) as User);
 
     if (!isUser) {
       throw appError(invalidToken);

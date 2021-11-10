@@ -1,21 +1,20 @@
 import { appError } from "@components/errors/AppError";
-import { getOneUserRepository } from "@repositories/users/implementations/prisma/GetOneUser.repository";
 import { User } from "@entities/User.entity";
 import { IUserDto } from "@requirements/dto/users/IUser.dto";
-import { updateOneUserRepository } from "@repositories/users/implementations/prisma/UpdateOneUser.repository";
 import { CheckFields } from "@components/providers/CheckFields.provider";
 import { hash } from "bcryptjs";
 import { IGetOneUserRepository } from "@repositories/users/interfaces/IGetOneUser.repository";
 import { IUpdateOneUserRepository } from "@repositories/users/interfaces/IUpdateOneUser.repository";
-import { IUpdateOneUserUseCase } from "./interfaces/IUpdateOneUser.useCase";
+import { IUpdateOneUserUseCase } from "@requirements/users/useCases/interfaces/IUpdateOneUser.useCase";
+import { getOneUserRepository, updateOneUserRepository } from "@requirements/users/implementations";
 
 class UpdateOneUserUseCase implements IUpdateOneUserUseCase {
   private getOneUserRepository: IGetOneUserRepository;
   private updateOneUserRepository: IUpdateOneUserRepository;
 
   constructor() {
-    this.getOneUserRepository = getOneUserRepository();
-    this.updateOneUserRepository = updateOneUserRepository();
+    this.getOneUserRepository = getOneUserRepository;
+    this.updateOneUserRepository = updateOneUserRepository;
   }
 
   async execute(data: IUserDto): Promise<User | null | undefined> {

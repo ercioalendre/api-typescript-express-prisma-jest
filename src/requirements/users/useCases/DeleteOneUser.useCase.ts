@@ -1,19 +1,18 @@
 import { User } from "@entities/User.entity";
 import { appError } from "@components/errors/AppError";
-import { getOneUserRepository } from "@repositories/users/implementations/prisma/GetOneUser.repository";
-import { deleteOneUserRepository } from "@repositories/users/implementations/prisma/DeleteOneUser.repository";
 import { IUserUniqueFieldsDto } from "@requirements/dto/users/IUserUniqueFields.dto";
 import { IGetOneUserRepository } from "@repositories/users/interfaces/IGetOneUser.repository";
 import { IDeleteOneUserRepository } from "@repositories/users/interfaces/IDeleteOneUser.repository";
-import { IDeleteOneUserUseCase } from "./interfaces/IDeleteOneUser.useCase";
+import { IDeleteOneUserUseCase } from "@requirements/users/useCases/interfaces/IDeleteOneUser.useCase";
+import { deleteOneUserRepository, getOneUserRepository } from "@requirements/users/implementations";
 
 class DeleteOneUserUseCase implements IDeleteOneUserUseCase {
   private getOneUserRepository: IGetOneUserRepository;
   private deleteOneUserRepository: IDeleteOneUserRepository;
 
   constructor() {
-    this.getOneUserRepository = getOneUserRepository();
-    this.deleteOneUserRepository = deleteOneUserRepository();
+    this.getOneUserRepository = getOneUserRepository;
+    this.deleteOneUserRepository = deleteOneUserRepository;
   }
 
   async execute(data: IUserUniqueFieldsDto): Promise<User | null | string> {

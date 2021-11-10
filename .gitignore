@@ -7,3 +7,5 @@ logs/*
 !logs/.gitkeep
 
 prisma/migrations/*
+
+src/__tests__/coverage/*

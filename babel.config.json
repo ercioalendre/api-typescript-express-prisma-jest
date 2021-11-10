@@ -11,11 +11,11 @@
     ["module-resolver",
       {
     "alias": {
-          "@src": "./src",
           "@components": "./src/components",
           "@entities": "./src/entities",
           "@repositories": "./src/repositories",
-          "@requirements": "./src/requirements"
+          "@requirements": "./src/requirements",
+          "@database": "./src/database"
         }
       }
     ],

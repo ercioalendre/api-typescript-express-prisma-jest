@@ -3,7 +3,7 @@ import { User } from "@entities/User.entity";
 import { PrismaClient } from "@prisma/client";
 import { IGetAllUsersRepository } from "@repositories/users/interfaces/IGetAllUsers.repository";
 
-class GetAllUsersRepository implements IGetAllUsersRepository {
+class GetAllUsersPrismaRepository implements IGetAllUsersRepository {
   public prisma: PrismaClient;
 
   constructor() {
@@ -20,6 +20,6 @@ class GetAllUsersRepository implements IGetAllUsersRepository {
   }
 }
 
-export function getAllUsersRepository(): GetAllUsersRepository {
-  return new GetAllUsersRepository();
+export function getAllUsersPrismaRepository(): GetAllUsersPrismaRepository {
+  return new GetAllUsersPrismaRepository();
 }

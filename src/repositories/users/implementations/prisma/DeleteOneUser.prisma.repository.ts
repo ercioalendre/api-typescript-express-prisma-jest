@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { IDeleteOneUserRepository } from "@repositories/users/interfaces/IDeleteOneUser.repository";
 import { IUserUniqueFieldsDto } from "@requirements/dto/users/IUserUniqueFields.dto";
 
-class DeleteOneUserRepository implements IDeleteOneUserRepository {
+class DeleteOneUserPrismaRepository implements IDeleteOneUserRepository {
   public prisma: PrismaClient;
 
   constructor() {
@@ -24,6 +24,6 @@ class DeleteOneUserRepository implements IDeleteOneUserRepository {
   }
 }
 
-export function deleteOneUserRepository(): DeleteOneUserRepository {
-  return new DeleteOneUserRepository();
+export function deleteOneUserPrismaRepository(): DeleteOneUserPrismaRepository {
+  return new DeleteOneUserPrismaRepository();
 }

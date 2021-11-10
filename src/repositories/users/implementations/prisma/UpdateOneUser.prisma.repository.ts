@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { IUpdateOneUserRepository } from "@repositories/users/interfaces/IUpdateOneUser.repository";
 import { IUserDto } from "@requirements/dto/users/IUser.dto";
 
-class UpdateOneUserRepository implements IUpdateOneUserRepository {
+class UpdateOneUserPrismaRepository implements IUpdateOneUserRepository {
   public prisma: PrismaClient;
 
   constructor() {
@@ -38,6 +38,6 @@ class UpdateOneUserRepository implements IUpdateOneUserRepository {
   }
 }
 
-export function updateOneUserRepository(): UpdateOneUserRepository {
-  return new UpdateOneUserRepository();
+export function updateOneUserPrismaRepository(): UpdateOneUserPrismaRepository {
+  return new UpdateOneUserPrismaRepository();
 }

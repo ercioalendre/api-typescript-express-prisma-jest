@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { ICreateOneUserRepository } from "@repositories/users/interfaces/ICreateOneUser.repository";
 import { IUserDto } from "@requirements/dto/users/IUser.dto";
 
-class CreateOneUserRepository implements ICreateOneUserRepository {
+class CreateOneUserPrismaRepository implements ICreateOneUserRepository {
   public prisma: PrismaClient;
 
   constructor() {
@@ -34,6 +34,6 @@ class CreateOneUserRepository implements ICreateOneUserRepository {
   }
 }
 
-export function createOneUserRepository(): CreateOneUserRepository {
-  return new CreateOneUserRepository();
+export function createOneUserPrismaRepository(): CreateOneUserPrismaRepository {
+  return new CreateOneUserPrismaRepository();
 }

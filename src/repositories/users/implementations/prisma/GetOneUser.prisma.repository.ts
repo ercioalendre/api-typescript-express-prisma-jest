@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { IGetOneUserRepository } from "@repositories/users/interfaces/IGetOneUser.repository";
 import { IUserUniqueFieldsDto } from "@requirements/dto/users/IUserUniqueFields.dto";
 
-class GetOneUserRepository implements IGetOneUserRepository {
+class GetOneUserPrismaRepository implements IGetOneUserRepository {
   public prisma: PrismaClient;
 
   constructor() {
@@ -22,6 +22,7 @@ class GetOneUserRepository implements IGetOneUserRepository {
           name: true,
           email: true,
           phone: true,
+          password: true,
         },
       })) as User;
     } catch (error) {
@@ -30,6 +31,6 @@ class GetOneUserRepository implements IGetOneUserRepository {
   }
 }
 
-export function getOneUserRepository(): GetOneUserRepository {
-  return new GetOneUserRepository();
+export function getOneUserPrismaRepository(): GetOneUserPrismaRepository {
+  return new GetOneUserPrismaRepository();
 }

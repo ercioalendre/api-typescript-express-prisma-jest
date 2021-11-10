@@ -1,11 +1,11 @@
-import { pathsToModuleNameMapper } from "ts-jest/utils";
-import { compilerOptions } from "./tsconfig.json";
+const { pathsToModuleNameMapper } = require("ts-jest/utils");
+const { compilerOptions } = require("./tsconfig.json");
 /*
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
 
-export default {
+module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -22,7 +22,7 @@ export default {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ["<rootDir>/src/modules/**/services/*.{js,ts}"],
+  collectCoverageFrom: ["<rootDir>/src/requirements/**/useCases/*.{js,ts}"],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: "src/__tests__/coverage",
@@ -63,9 +63,7 @@ export default {
   // maxWorkers: "50%",
 
   // An array of directory names to be searched recursively up from the requiring module's location
-  // moduleDirectories: [
-  //   "node_modules"
-  // ],
+  // moduleDirectories: ['node_modules']
 
   // An array of file extensions your modules use
   // moduleFileExtensions: [
@@ -137,7 +135,7 @@ export default {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  // testEnvironment: "jest-environment-node",
+  testEnvironment: "node",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -146,7 +144,7 @@ export default {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: ["**/__tests__/**/*.test.[jt]s?(x)"],
+  testMatch: ["**/__tests__/**/*.(spec|test).[jt]s?(x)", "**/?(*.)(spec|test).[jt]s?(x)"],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
